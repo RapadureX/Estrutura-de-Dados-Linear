@@ -62,12 +62,13 @@ public class ListaEncCircularFabio {
 		throw new ElementoInexistenteException();
 	}
 	
-	public void remover(Aluno aluno) {
+	public void remover(Aluno aluno) throws ElementoInexistenteException{
 		
 		NoFabio aux = primeiro;
 		NoFabio anterior = null;
 		NoFabio seguinte = null;
 		Aluno alunoNo = null;
+		boolean exist = false;
 		
 		while(aux != ultimo) {
 			
@@ -75,6 +76,7 @@ public class ListaEncCircularFabio {
 			seguinte = aux.getProximo();
 			
 			if(alunoNo.equals(aluno)) {
+				exist = true;
 				if(anterior == null) {
 					primeiro = primeiro.getProximo();
 					ultimo.setProximo(primeiro);
@@ -89,8 +91,13 @@ public class ListaEncCircularFabio {
 		}
 		
 		if(ultimo.getInfo().equals(aluno)) {
+			exist = true;
 			anterior.setProximo(primeiro);
 			ultimo = anterior;
+		}
+		
+		if(!exist) {
+			throw new ElementoInexistenteException();
 		}
 	}
 
