@@ -29,20 +29,50 @@ public class ListaEncCircularFabio {
 		return this.primeiro;
 	}
 	
+	/*
+	 * Método de inserção, que recebe como parâmetro um objeto do 
+	 * tipo aluno que será inserido na lista.
+	*/
 	public void inserir(Aluno aluno) {
 		
+		//Criando um novo nó.
 		NoFabio novoElemento = new NoFabio();
 		
+		//inserindo a informação do aluno no novo nó criado.
 		novoElemento.setInfo(aluno);
+		
+		//inserindo a referencia para o próximo nó do novo nó criado.
 		novoElemento.setProximo(primeiro);
 		
+		/*
+		 * Condicional: Se o primeiro for igual a nulo, quer dizer que
+		 * é o primeiro aluno a ser inserido na lista.
+		 */
 		if(primeiro == null) {
+			
+			//O primeiro passará a ser o novo nó.
 			primeiro = novoElemento;
+			
+			/* 
+			 * O último passará a ser o novo nó, assim guardando 
+			 * a referencia do último nó da lista.
+			 */ 
 			ultimo = novoElemento;
+			
+		/*
+		 * Se não quer dizer que o primeiro já foi inserido, 
+		 * então o primeiro receberá os novos nós que são criados.
+		 */
 		}else {
+			
+			//O primeiro passará a ser o novo nó.
 			primeiro = novoElemento;
 		}
 		
+		/*
+		 * E sempre que inserir um novo aluno, o ultimo setará 
+		 * o seu próximo nó como primeiro, que será sempre o novo nó criado.
+		 */
 		ultimo.setProximo(primeiro);
 	}
 	
