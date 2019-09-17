@@ -2,6 +2,7 @@ package ifrn.ed.lineares.listaEncadeada;
 
 import ifrn.dominio.Aluno;
 import ifrn.ed.lineares.util.ElementoInexistenteException;
+import ifrn.ed.lineares.util.ListaVaziaException;
 
 public class ListaEncCircularFabio {
 	
@@ -45,50 +46,72 @@ public class ListaEncCircularFabio {
 		ultimo.setProximo(primeiro);
 	}
 	
-	public NoFabio buscar(Aluno aluno) throws ElementoInexistenteException{
+	public NoFabio buscar(Aluno aluno) throws ElementoInexistenteException, ListaVaziaException{
 		
-		NoFabio aux = primeiro;
+		if(this.listaVazia()) {
+			throw new ListaVaziaException();
+		}
+		
+		NoFabio aux = primeiro.getProximo();
 		
 		if(primeiro.getInfo().equals(aluno)) {
 			return primeiro;
-		}else {
+		}else if(ultimo.getInfo().equals(aluno)){
+			return ultimo;
+		}else {	
 			while(aux != ultimo) {
-				if(aux.getProximo().getInfo().equals(aluno)) {
-					return aux.getProximo();
+				if(aux.getInfo().equals(aluno)) {
+					return aux;
 				}
 				aux = aux.getProximo();
 			}
 		}
+		
 		throw new ElementoInexistenteException();
 	}
 	
-	public void remover(Aluno aluno) throws ElementoInexistenteException{
+	public void remover(Aluno aluno) throws ElementoInexistenteException, ListaVaziaException{
 		
-		NoFabio aux = primeiro;
+		if(this.listaVazia()) {
+			throw new ListaVaziaException();
+		}
+		
 		NoFabio anterior = null;
 		NoFabio seguinte = null;
-		Aluno alunoNo = null;
 		boolean exist = false;
 		
-		while(aux != ultimo) {
+		if((primeiro.equals(ultimo)) && (primeiro.getInfo().equals(aluno))) {
 			
-			alunoNo = aux.getInfo();
-			seguinte = aux.getProximo();
+			exist = true;
+			primeiro = null;
+			ultimo = null;
+		
+		}else if(primeiro.getInfo().equals(aluno)) {
 			
-			if(alunoNo.equals(aluno)) {
-				exist = true;
-				if(anterior == null) {
-					primeiro = primeiro.getProximo();
-					ultimo.setProximo(primeiro);
-				}else {
+			exist = true;
+			primeiro = primeiro.getProximo();	
+			ultimo.setProximo(primeiro);
+			
+		}else {
+			
+			NoFabio aux = primeiro.getProximo();
+			Aluno alunoNo = null;
+			
+			while(aux != ultimo) {
+			
+				alunoNo = aux.getInfo();
+				seguinte = aux.getProximo();
+				
+				if(alunoNo.equals(aluno)) {
+					exist = true;
 					anterior.setProximo(seguinte);
+					aux = ultimo;
+				}else {
+					anterior = aux;
+					aux = seguinte;
 				}
-				aux = ultimo;
-			}else {
-				anterior = aux;
-				aux = seguinte;
 			}
-		}
+		}	
 		
 		if(ultimo.getInfo().equals(aluno)) {
 			exist = true;
@@ -100,5 +123,8 @@ public class ListaEncCircularFabio {
 			throw new ElementoInexistenteException();
 		}
 	}
-
+	
+	public boolean listaVazia() {
+		return primeiro == null;
+	}
 }
