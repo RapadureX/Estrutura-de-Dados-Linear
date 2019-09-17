@@ -25,10 +25,6 @@ public class ListaEncCircularFabio {
 		return res;
 	}
 	
-	public NoFabio getPrimeiro() {
-		return this.primeiro;
-	}
-	
 	/*
 	 * Método de inserção, que recebe como parâmetro um objeto do 
 	 * tipo aluno que será inserido na lista.
