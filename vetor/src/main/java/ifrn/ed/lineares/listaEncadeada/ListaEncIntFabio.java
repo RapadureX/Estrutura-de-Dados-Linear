@@ -2,7 +2,7 @@ package ifrn.ed.lineares.listaEncadeada;
 
 import ifrn.dominio.Aluno;
 import ifrn.ed.lineares.util.ElementoInexistenteException;
-import ifrn.ed.lineares.util.ListaVaziaException;
+import ifrn.ed.lineares.util.EstruturaVaziaException;
 
 public class ListaEncIntFabio {
 	
@@ -123,7 +123,7 @@ public class ListaEncIntFabio {
 		return this.inicio == null;
 	}
 	
-	public int length() throws ListaVaziaException{
+	public int length() throws EstruturaVaziaException{
 		int cont = 0;
 		NoFabio noAux = inicio;
 		if(!this.estaVazio()) {
@@ -133,7 +133,7 @@ public class ListaEncIntFabio {
 			}
 			return cont;
 		}else {
-			throw new ListaVaziaException();
+			throw new EstruturaVaziaException();
 		}
 		
 	}
